@@ -1,0 +1,26 @@
+---
+user_accounts:
+  - name: ansible
+    comment: "Ansible"
+    groups:
+      - sudo
+    append: true
+    shell: "/bin/bash"
+    ssh_keys: []
+    authorized_keys: "{{ query('first_found', user_pub_sshkeys, errors='ignore') | default(omit) }}"
+    state: "present"
+
+
+user_pub_sshkeys:
+  - "{{ playbook_dir }}/files/id_rsa.pub"
+  - "~/.ssh/id_rsa.pub"
+
+
+user_sudoers:
+  - file: "ansible"
+    user: "ansible"
+    host: "ALL"
+    runas:
+      - user: "ALL"
+        group: "ALL"
+        cmd: "ALL"
