@@ -1,7 +1,6 @@
 ---
 - name: "Manage user's account"
-  tags: user-account
-  user:
+  ansible.builtin.user:
     name: "{{ item['name'] }}"
     comment: "{{ item['comment'] | default(omit, true) }}"
     groups: "{{ item['groups'] | default(omit, true) }}"
