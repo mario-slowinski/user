@@ -3,18 +3,18 @@
   tags:
     - user
     - user-account
-  import_tasks: account.yml
+  ansible.builtin.import_tasks: account.yml
   when: user_accounts | length > 0
 
 - name: "Manage user's sshkeys"
   tags:
     - user
     - user-sshkeys
-  import_tasks: sshkeys.yml
+  ansible.builtin.import_tasks: sshkeys.yml
 
-- name: "Manage suoers"
+- name: "Manage sudoers"
   tags:
     - user
     - user-sudoers
-  import_tasks: sudoers.yml
+  ansible.builtin.import_tasks: sudoers.yml
   when: user_sudoers | length > 0
