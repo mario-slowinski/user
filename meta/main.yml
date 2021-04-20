@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: mario_slowinski
+  description: Manage OS users and sudoers
+
+  license: GPL-3.0-only
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: GenericLinux
+      versions:
+        - any
+
+  galaxy_tags:
+    - user
+    - account
+    - sudo
+
+dependencies: []

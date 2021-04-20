@@ -1,0 +1,15 @@
+---
+- name: "Manage user's account"
+  tags: user-account
+  user:
+    name: "{{ item['name'] }}"
+    comment: "{{ item['comment'] | default(omit, true) }}"
+    groups: "{{ item['groups'] | default(omit, true) }}"
+    append: "{{ item['append'] | default(omit, true) }}"
+    shell: "{{ item['shell'] | default(omit, true) }}"
+    password: "{{ item['password'] | default(omit, true) }}"
+    remove: "{{ item['remove'] | default(omit, true) }}"
+    state: "{{ item['state'] | default(omit, true) }}"
+  loop: "{{ user_accounts }}"
+  loop_control:
+    label: "{{ item['name'] }}"
