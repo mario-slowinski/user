@@ -1,4 +1,14 @@
 ---
+user_password_generate: "!GENERATE!"
+user_password_file: "/tmp/{{ inventory_hostname_short }}_"
+user_password_seed: "{{ inventory_hostname }}"
+user_password_hash: "sha512"
+user_password_length: 12
+user_password_chars:
+  - "ascii_letters"
+  - "ascii_digits"
+
+
 user_accounts:
   - name: ansible
     comment: "Ansible"
@@ -6,6 +16,10 @@ user_accounts:
       - sudo
     append: true
     shell: "/bin/bash"
+    password: "!GENERATE!"
+    generate_ssh_key: true
+    ssh_key_bits: 4096
+    ssh_key_comment: "ansible@{{ inventory_hostname_short }}"
     ssh_keys: []
     authorized_keys: "{{ query('first_found', user_pub_sshkeys, errors='ignore') | default(omit) }}"
     state: "present"
