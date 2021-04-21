@@ -20,7 +20,7 @@
     state: "{{ item['state'] | default(omit, true) }}"
     update_password: "{{ item['update_password'] | default(omit, true) }}"
     password:
-      "{% if item['password'] | default('') is regex('\\$[0-9]\\$.{60}') %}\
+      "{% if item['password'] | default('') is regex('^\\$[0-9]\\$.{60}') %}\
       {{ item['password'] }}\
       {% else %}\
       {% if item['password'] | default('') == user_password_generate %}\
