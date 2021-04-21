@@ -1,14 +1,35 @@
 ---
 - name: "Manage user's account"
   ansible.builtin.user:
-    name: "{{ item['name'] }}"
+    name: "{{ item['name'] | mandatory }}"
     comment: "{{ item['comment'] | default(omit, true) }}"
     groups: "{{ item['groups'] | default(omit, true) }}"
     append: "{{ item['append'] | default(omit, true) }}"
     shell: "{{ item['shell'] | default(omit, true) }}"
-    password: "{{ item['password'] | default(omit, true) }}"
-    remove: "{{ item['remove'] | default(omit, true) }}"
+    home: "{{ item['home'] | default(omit, true) }}"
+    create_home: "{{ item['create_home'] | default(omit, true) }}"
+    skeleton: "{{ item['skeleton'] | default(omit, true) }}"
+    non_unique: "{{ item['non_unique'] | default(omit, true) }}"
+    generate_ssh_key: "{{ item['generate_ssh_key'] | default(omit, true) }}"
+    ssh_key_bits: "{{ item['ssh_key_bits'] | default(omit, true) }}"
+    ssh_key_comment: "{{ item['ssh_key_comment'] | default(omit, true) }}"
+    ssh_key_file: "{{ item['ssh_key_file'] | default(omit, true) }}"
+    ssh_key_passphrase: "{{ item['ssh_key_passphrase'] | default(omit, true) }}"
+    ssh_key_type: "{{ item['ssh_key_type'] | default(omit, true) }}"
+    force: "{{ item['force'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
+    update_password: "{{ item['update_password'] | default(omit, true) }}"
+    password:
+      "{% if item['password'] | default('') is regex('\\$[0-9]\\$.{60}') %}\
+      {{ item['password'] }}\
+      {% else %}\
+      {% if item['password'] | default('') == user_password_generate %}\
+      {% set password = lookup('password', user_password_file+item['name']+' length='+user_password_length|string+' chars='+user_password_chars|join(',')) %}\
+      {% else %}\
+      {% set password = item['password'] | default('') %}\
+      {% endif %}\
+      {{ password | password_hash(user_password_hash, 65534 | random(seed=user_password_seed) | string) }}\
+      {% endif %}"
   loop: "{{ user_accounts }}"
   loop_control:
     label: "{{ item['name'] }}"
