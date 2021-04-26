@@ -1,14 +1,4 @@
 ---
-user_password_generate: "!GENERATE!"
-user_password_file: "/tmp/{{ inventory_hostname_short }}_"
-user_password_seed: "{{ inventory_hostname }}"
-user_password_hash: "sha512"
-user_password_length: 12
-user_password_chars:
-  - "ascii_letters"
-  - "ascii_digits"
-
-
 user_accounts:
   - name: ansible
     comment: "Ansible"
@@ -26,13 +16,3 @@ user_accounts:
         state: absent
       - key: "~/.ssh/id_rsa.pub"
     state: "present"
-
-
-user_sudoers:
-  - file: "ansible"
-    user: "ansible"
-    host: "ALL"
-    runas:
-      - user: "ALL"
-        group: "ALL"
-        cmd: "ALL"

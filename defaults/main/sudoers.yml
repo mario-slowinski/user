@@ -1,0 +1,9 @@
+---
+user_sudoers:
+  - file: "ansible"
+    user: "ansible"
+    host: "ALL"
+    runas:
+      - user: "ALL"
+        group: "ALL"
+        cmd: "ALL"
