@@ -11,5 +11,7 @@
     group: root
     mode: 0400
     create: true
-    state: "{{ item[0]['state'] }}"
+    state: "{{ item[0]['state'] | default(omit) }}"
   loop: "{{ user_sudoers | subelements('runas') }}"
+  loop_control:
+    label: "{{ item[0]['state'] | default('present') }} user={{ item[1]['user'] }} command={{ item[1]['cmd'] }}"
