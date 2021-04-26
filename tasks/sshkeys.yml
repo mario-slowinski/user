@@ -1,15 +1,20 @@
 ---
 - name: "Manage ssh public key in authorized keys"
-  tags: user-sshkeys-authorized
+  tags: user.sshkeys.authorized
   ansible.posix.authorized_key:
-    key: "{{ lookup('file', item[1], errors='ignore') }}"
+    key:
+      "{% if item[1] is match('ssh-.{256}') %}\
+      {{ item[1] }}\
+      {% else %}\
+      {{ lookup('file', item[1], errors='ignore') }}\
+      {% endif %}"
     user: "{{ item[0]['name'] }}"
   loop: "{{ user_accounts | subelements('authorized_keys', skip_missing=True) }}"
   loop_control:
     label: "{{ item[0]['name'] }} {{ item[1] }}"
 
 - name: "Copy ssh public keys"
-  tags: user-sshkeys-private
+  tags: user.sshkeys.private
   ansible.builtin.copy:
     src: "{{ item[1] }}"
     dest: "~{{ item[0]['name'] }}/.ssh/{{ item[1] | basename }}"
