@@ -6,12 +6,21 @@ Ansible role to manage OS user's account and sudoers files, including:
 * create/remove user
 * create/remove user's home directory
 * create user's ssh keys
+* add to authorized list an user's existing ssh public key from `authorized_keys[]`:
+  * direct value, optionally with [!unsafe](https://docs.ansible.com/ansible/latest/user_guide/playbooks_advanced_syntax.html#unsafe-or-raw-strings) prefix
+  * relative or absolute path to a file
 * set user's password
   * assign already encrypted password
 
-    Anything matching regex `regex('^\$[0-9]\$.{60}'` is considered to be an encrypted password (starting with `$anydigit$` followed by at least 60 characters)
+    Anything matching regex `regex('^\$[0-9]\$.{60}'` is considered to be an encrypted password (starting with `$anydigit$` followed by at least 60 characters).
 
   * encrypt given password with `user_password_hash`
+
+    Please use [ansible-vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) to encrypt variable with password.
+
+    ```bash
+    echo -n "secret" | ansible-vault encrypt_string --vault-id @prompt --stdin-name password
+    ```
 
   * generate, and store locally on ansible controller, password with given:
 
@@ -52,6 +61,7 @@ Tags
 
 * user.account
 * user.sshkeys
+  * user.sshkeys.authorized
 * user.sudoers
 
 Example Playbook
