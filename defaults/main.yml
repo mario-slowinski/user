@@ -22,8 +22,9 @@ user_accounts:
     ssh_key_comment: "ansible@{{ inventory_hostname_short }}"
     ssh_keys: []
     authorized_keys:
-      - "{{ playbook_dir }}/files/id_rsa.pub"
-      - "~/.ssh/id_rsa.pub"
+      - key: "{{ playbook_dir }}/files/id_rsa.pub"
+        state: absent
+      - key: "~/.ssh/id_rsa.pub"
     state: "present"
 
 
