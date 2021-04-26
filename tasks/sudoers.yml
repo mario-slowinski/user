@@ -7,9 +7,10 @@
       =
       ({{ item[1]['user'] }}:{{ item[1]['group'] }})
       {{ item[1]['password'] | ternary('PASSWD:','NOPASSWD:') }} {{ item[1]['cmd'] }}
-    owner: root
-    group: root
-    mode: 0400
+    owner: "{{ user_sudoers_config['owner'] }}"
+    group: "{{ user_sudoers_config['group'] }}"
+    mode: "{{ user_sudoers_config['mode'] }}"
+    setype: "{{ user_sudoers_config['setype'] }}"
     create: true
     state: "{{ item[0]['state'] | default(omit) }}"
   loop: "{{ user_sudoers | subelements('runas') }}"
