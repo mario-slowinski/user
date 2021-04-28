@@ -1,8 +1,9 @@
 user
 ====
 
-Ansible role to manage OS user's account and sudoers files, including:
+Ansible role to manage OS user's account, groups and sudoers files, including:
 
+* create/remove group
 * create/remove user
 * create/remove user's home directory
 * create/copy user's ssh keys
@@ -55,6 +56,12 @@ Role Variables
     user_password_chars: []   # list of allowed characters
     ```
 
+  * groups
+
+    ```yaml
+    user_groups:              # list of OS groups to add/remove
+    ```
+
   * accounts
 
     ```yaml
@@ -87,6 +94,7 @@ This role has no dependencies.
 Tags
 ----
 
+* user.group
 * user.account
 * user.sshkeys
   * user.sshkeys.authorized

@@ -1,5 +1,5 @@
 ---
-- name: "Manage user's account"
+- name: "Manage users"
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
     comment: "{{ item['comment'] | default(omit, true) }}"
@@ -32,5 +32,5 @@
       {% endif %}"
   loop: "{{ user_accounts }}"
   loop_control:
-    label: "{{ item['name'] }}"
+    label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   no_log: true

@@ -1,10 +1,15 @@
 ---
+- name: "Manage groups"
+  tags:
+    - user
+    - user.group
+  ansible.builtin.import_tasks: group.yml
+
 - name: "Manage user's account"
   tags:
     - user
     - user.account
   ansible.builtin.import_tasks: account.yml
-  when: user_accounts | length > 0
 
 - name: "Manage user's sshkeys"
   tags:
@@ -17,4 +22,3 @@
     - user
     - user.sudoers
   ansible.builtin.import_tasks: sudoers.yml
-  when: user_sudoers | length > 0
