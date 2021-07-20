@@ -9,6 +9,8 @@
       {{ lookup('file', item[1]['key'], errors='ignore') }}\
       {% endif %}"
     user: "{{ item[0]['name'] }}"
+    manage_dir: "{{ item[1]['manage_dir'] | default(omit, true) }}"
+    path: "{{ item[1]['path'] | default(omit, true) }}"
     state: "{{ item[1]['state'] | default(omit, true) }}"
   loop: "{{ user_accounts | subelements('authorized_keys', skip_missing=True) }}"
   loop_control:
