@@ -3,22 +3,22 @@
   tags:
     - user
     - user.group
-  ansible.builtin.import_tasks: group.yml
+  ansible.builtin.import_tasks: group.yaml
 
 - name: "Manage user's account"
   tags:
     - user
     - user.account
-  ansible.builtin.import_tasks: account.yml
+  ansible.builtin.import_tasks: account.yaml
 
 - name: "Manage user's sshkeys"
   tags:
     - user
     - user.sshkeys
-  ansible.builtin.import_tasks: sshkeys.yml
+  ansible.builtin.import_tasks: sshkeys.yaml
 
 - name: "Manage sudoers"
   tags:
     - user
     - user.sudoers
-  ansible.builtin.import_tasks: sudoers.yml
+  ansible.builtin.import_tasks: sudoers.yaml
