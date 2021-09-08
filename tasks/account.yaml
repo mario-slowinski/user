@@ -34,4 +34,4 @@
   loop: "{{ user_accounts }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
-  no_log: true
+  no_log: "{{ user_account_log | default(true) }}"
