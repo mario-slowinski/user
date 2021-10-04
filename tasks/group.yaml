@@ -3,6 +3,7 @@
   ansible.builtin.group:
     name: "{{ item['name'] | mandatory }}"
     gid: "{{ item['gid'] | default(omit, true) }}"
+    system: "{{ item['system'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
   loop: "{{ user_groups }}"
   loop_control:

@@ -2,6 +2,7 @@
 - name: "Manage users"
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
+    system: "{{ item['system'] | default(omit, true) }}"
     comment: "{{ item['comment'] | default(omit, true) }}"
     groups: "{{ item['groups'] | default(omit, true) }}"
     append: "{{ item['append'] | default(omit, true) }}"

@@ -59,7 +59,7 @@ Role Variables
   * groups
 
     ```yaml
-    user_groups:              # list of OS groups to add/remove
+    user_groups: []           # list of OS groups to add/remove
     ```
 
   * accounts
@@ -89,20 +89,20 @@ Role Variables
 Dependencies
 ------------
 
-This role has no dependencies.
+*No* *dependencies*.
 
 Tags
 ----
 
-* user.group
-* user.account
-* user.sshkeys
-  * user.sshkeys.authorized
-  * user.sshkeys.private
-* user.sudoers
+* **user.group** - Manage groups
+* **user.account** - Manage user's account
+* **user.sshkeys** - Manage user's sshkeys
+  * **user.sshkeys.authorized** - Manage ssh public key in authorized keys
+  * **user.sshkeys.private** - Copy ssh keys
+* **user.sudoers** - Manage sudoers
 
-Example Playbook
-----------------
+Examples
+--------
 
 * `requirements.yml`
 
@@ -111,7 +111,7 @@ Example Playbook
     src: https://github.com/mario-slowinski/user
   ```
 
-* playbook usage
+* `playbook.yaml`
 
   ```yaml
   - hosts: servers
