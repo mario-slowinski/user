@@ -3,9 +3,11 @@
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
     system: "{{ item['system'] | default(omit, true) }}"
-    comment: "{{ item['comment'] | default(omit, true) }}"
+    uid: "{{ item['uid'] | default(omit, true) }}"
+    group: "{{ item['group'] | default(omit, true) }}"
     groups: "{{ item['groups'] | default(omit, true) }}"
     append: "{{ item['append'] | default(omit, true) }}"
+    comment: "{{ item['comment'] | default(omit, true) }}"
     shell: "{{ item['shell'] | default(omit, true) }}"
     home: "{{ item['home'] | default(omit, true) }}"
     create_home: "{{ item['create_home'] | default(omit, true) }}"
