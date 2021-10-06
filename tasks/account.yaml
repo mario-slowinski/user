@@ -1,5 +1,6 @@
 ---
-- name: "Manage users"
+- name: "Manage local users"
+  tags: user.account.local
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
     system: "{{ item['system'] | default(omit, true) }}"
@@ -24,7 +25,15 @@
     update_password: "{{ item['update_password'] | default(omit, true) }}"
     password: "{{ lookup('template','password.ji2') | trim }}"
     password_lock: "{{ item['password_lock'] | default(omit, true) }}"
-  loop: "{{ user_accounts }}"
+  loop: "{{ user_accounts | selectattr('dn','undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   no_log: "{{ user_account_log | default(true) }}"
+
+- name: "Manage ldap users"
+  tags: user.account.ldap
+  ansible.builtin.import_role:
+    name: ldap
+  vars:
+    user_password_hash: sha256
+    ldap_entries: "{{ lookup('template','ldap.ji2') | trim }}"
