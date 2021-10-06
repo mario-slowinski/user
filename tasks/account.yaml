@@ -22,17 +22,7 @@
     force: "{{ item['force'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
     update_password: "{{ item['update_password'] | default(omit, true) }}"
-    password:
-      "{% if item['password'] | default('') is regex('^\\$[0-9]\\$.{60}') or item['password'] == '!' %}\
-      {{ item['password'] }}\
-      {% else %}\
-      {% if item['password'] | default('') == user_password_generate %}\
-      {% set password = lookup('password', user_password_file+item['name']+' length='+user_password_length|string+' chars='+user_password_chars|join(',')) %}\
-      {% else %}\
-      {% set password = item['password'] | default('') %}\
-      {% endif %}\
-      {{ password | password_hash(user_password_hash, 65534 | random(seed=user_password_seed) | string) }}\
-      {% endif %}"
+    password: "{{ lookup('template','password.ji2') | trim }}"
     password_lock: "{{ item['password_lock'] | default(omit, true) }}"
   loop: "{{ user_accounts }}"
   loop_control:
