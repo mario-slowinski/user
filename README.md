@@ -1,10 +1,10 @@
 user
 ====
 
-Ansible role to manage OS user's account, groups and sudoers files, including:
+Ansible role to manage user's account, groups and sudoers files, including:
 
 * create/remove group
-* create/remove user
+* create/remove user locally or in LDAP
 * create/remove user's home directory
 * create/copy user's ssh keys
 * add an user's existing ssh public key from `authorized_keys[]`:
@@ -13,7 +13,10 @@ Ansible role to manage OS user's account, groups and sudoers files, including:
 * set user's password
   * assign already encrypted password
 
-    Anything matching regex `regex('^\$[0-9]\$.{60}'` is considered to be an encrypted password (starting with `$anydigit$` followed by at least 60 characters).
+    Anything matching below is considered to be already set or encrypted password:
+    * `!` password for locked account
+    * `regex('^\$[0-9]\$.{60}'` starting with `$anydigit$` followed by at least 60 characters
+    * `regex('^\{[A-Z0-9]+\}.+')` starting with `{SHA}` followed by length in bytes
 
   * encrypt given password with `user_password_hash`
 
@@ -67,6 +70,14 @@ Role Variables
     ```yaml
     user_accounts: []         # list of users to manage
     - name: username
+      dn: ""                  # DN of account entry in LDAP
+      objectClass: []         # objectClasses of account entry in LDAP
+      attributes: {}          # attributes of account entry in LDAP
+        uid: ""               # i.e.
+        cn: ""
+        homeDirectory: ""
+        loginShell: ""
+        userPassword: ""      # follows the same rules as local account
       authorized_keys: []     # list of keys to add/remove
         - key: "{{ playbook_dir }}/files/id_rsa.pub"
           state: absent       # remove key matching the one in file
@@ -89,7 +100,7 @@ Role Variables
 Dependencies
 ------------
 
-*No* *dependencies*.
+* [ldap](https://github.com/mario-slowinski/ldap)
 
 Tags
 ----
