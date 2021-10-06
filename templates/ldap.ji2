@@ -1,6 +1,6 @@
 {% set ldap = namespace(entries=[]) %}
 {% for user_account in user_accounts | selectattr('dn','defined') -%}
-  {%- set item = {'dn':user_account['dn'],'password':user_account['attributes']['userPassword']} -%}
+  {%- set item = {'name':user_account['name'],'dn':user_account['dn'],'password':user_account['attributes']['userPassword']} -%}
   {%- set ldap.password -%}
     {%- include 'password.ji2' -%}
   {%- endset -%}
