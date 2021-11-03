@@ -11,6 +11,18 @@
     - user.account
   ansible.builtin.import_tasks: account.yaml
 
+- name: "Manage user's home directory"
+  tags:
+    - user
+    - user.homedir
+  ansible.builtin.include_tasks: homedir.yaml
+  loop: "{{ user_accounts | selectattr('dn','defined') }}"
+  loop_control:
+    label: "{{ item['dn'] }} homedir={{ item['attributes']['homeDirectory'] }}"
+  when: |
+    item['create_home'] is defined and
+    item['create_home'] | bool
+
 - name: "Manage user's sshkeys"
   tags:
     - user

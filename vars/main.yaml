@@ -4,3 +4,7 @@ user_sudoers_config:
   group: root
   mode: 0o644
   setype: etc_t
+
+user_homedir:
+  mode: 0o700
+  setype: home_t
