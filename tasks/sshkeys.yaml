@@ -1,4 +1,18 @@
 ---
+- name: "Create authorized keys directory"
+  tags: user.sshkeys.directory
+  ansible.builtin.file:
+    path: "{{ item[1]['path'] | dirname }}"
+    state: directory
+    owner: "{{ item[1]['owner'] | default(omit) }}"
+    group: "{{ item[1]['group'] | default(omit) }}"
+    mode: "{{ item[1]['mode'] | default(omit) }}"
+    setype: "{{ item[1]['setype'] | default(omit) }}"
+  loop: "{{ user_accounts | subelements('authorized_keys', skip_missing=True) }}"
+  loop_control:
+    label: "{{ item[0]['name'] }}"
+  when: item[1]['path'] is defined
+
 - name: "Manage ssh public key in authorized keys"
   tags: user.sshkeys.authorized
   ansible.posix.authorized_key:
