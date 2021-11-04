@@ -8,3 +8,5 @@ user_sudoers_config:
 user_homedir:
   mode: 0o700
   setype: home_t
+
+user_query_homedir: "[?remote==`true` && create_home!=`false`].name"
