@@ -16,12 +16,9 @@
     - user
     - user.homedir
   ansible.builtin.include_tasks: homedir.yaml
-  loop: "{{ user_accounts | selectattr('dn','defined') }}"
+  loop: "{{ user_accounts | json_query(user_query_homedir) }}"
   loop_control:
-    label: "{{ item['dn'] }} homedir={{ item['attributes']['homeDirectory'] }}"
-  when: |
-    item['create_home'] is defined and
-    item['create_home'] | bool
+    label: "{{ item }}"
 
 - name: "Manage user's sshkeys"
   tags:
