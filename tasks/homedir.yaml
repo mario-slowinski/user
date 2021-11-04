@@ -1,0 +1,28 @@
+---
+- name: "Get user's account details via getent"
+  tags: user.homedir
+  ansible.builtin.getent:
+    database: passwd
+    key: "{{ item }}"
+
+- name: "Setup user's home directory"
+  tags: user.homedir
+  block:
+    - name: "Copy '/etc/skel' as user's home directory"
+      ansible.builtin.copy:
+        remote_src: true
+        src: /etc/skel/
+        dest: "{{ getent_passwd[item][4] }}"
+        owner: "{{ getent_passwd[item][1] }}"
+        group: "{{ getent_passwd[item][2] }}"
+        mode: "{{ user_homedir['mode'] }}"
+        setype: "{{ user_homedir['setype'] }}"
+  rescue:
+    - name: "Create user's home directory"
+      ansible.builtin.file:
+        state: directory
+        path: "{{ getent_passwd[item][4] }}"
+        owner: "{{ getent_passwd[item][1] }}"
+        group: "{{ getent_passwd[item][2] }}"
+        mode: "{{ user_homedir['mode'] }}"
+        setype: "{{ user_homedir['setype'] }}"
