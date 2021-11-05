@@ -1,6 +1,6 @@
 ---
 - name: "Manage local users"
-  tags: user.account.local
+  tags: user.account
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
     system: "{{ item['system'] | default(omit, true) }}"
@@ -29,10 +29,3 @@
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   no_log: "{{ user_account_nolog | default(true) }}"
-
-- name: "Manage ldap users"
-  tags: user.account.ldap
-  ansible.builtin.import_role:
-    name: ldap
-  vars:
-    ldap_entries: "{{ lookup('template','ldap.ji2') | trim }}"
