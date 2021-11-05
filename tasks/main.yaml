@@ -11,6 +11,12 @@
     - user.account
   ansible.builtin.import_tasks: account.yaml
 
+- name: "Manage user's in ldap"
+  tags:
+    - user
+    - user.ldap
+  ansible.builtin.import_tasks: ldap.yaml
+
 - name: "Manage user's home directory"
   tags:
     - user

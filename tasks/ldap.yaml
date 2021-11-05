@@ -1,0 +1,7 @@
+---
+- name: "Manage ldap users"
+  tags: user.ldap
+  ansible.builtin.import_role:
+    name: ldap
+  vars:
+    ldap_entries: "{{ lookup('template','ldap.ji2') | trim }}"
