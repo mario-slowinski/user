@@ -11,7 +11,7 @@
     - name: "Copy '/etc/skel' as user's home directory"
       ansible.builtin.copy:
         remote_src: true
-        src: /etc/skel/
+        src: "{{ user_skel_path }}"
         dest: "{{ getent_passwd[item][4] }}"
         owner: "{{ getent_passwd[item][1] }}"
         group: "{{ getent_passwd[item][2] }}"
