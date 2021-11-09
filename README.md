@@ -34,9 +34,9 @@ Ansible role to manage user's account, groups and sudoers files, including:
 
     Generated passwords are stored as plaintext in a file on ansible controller. File location is set by `user_password_file` but it **always** ends with user's name.
 
-  * manage sudoers entries
-    * in `/etc/sudoers` if `user_sudoers: [{file: "sudoers", ...}]`
-    * in `/etc/sudoers.d/name` if `user_sudoers: [{file: "name", ...}]`
+* manage sudoers entries
+  * in `/etc/sudoers` if `user_sudoers: [{file: "sudoers", ...}]`
+  * in `/etc/sudoers.d/name` if `user_sudoers: [{file: "name", ...}]`
 
 Requirements
 ------------
@@ -47,8 +47,8 @@ Requirements
 Role Variables
 --------------
 
-* defaults
-  * password
+* `defaults`
+  * `password`
 
     ```yaml
     user_password_generate:   # generate password if set to this
@@ -59,13 +59,13 @@ Role Variables
     user_password_chars: []   # list of allowed characters
     ```
 
-  * groups
+  * `groups`
 
     ```yaml
     user_groups: []           # list of OS groups to add/remove
     ```
 
-  * accounts
+  * `accounts`
 
     ```yaml
     user_accounts: []         # list of users to manage
@@ -84,7 +84,7 @@ Role Variables
         - key: "~/.ssh/id_rsa.pub"
     ```
 
-  * sudoers
+  * `sudoers`
 
     ```yaml
     user_sudoers:             # list of sudoers entries
@@ -97,6 +97,15 @@ Role Variables
             cmd: "ALL"        # run this command
     ```
 
+* `vars`
+
+  ```yaml
+  user_sudoers_config: {}     # sudoers file attributes
+  user_homedir: {}            # home directory attributes
+  user_skel_path: /etc/skel   # location of skel for home dir
+  user_query_homedir: ""      # JMESPath query to filter user that should have home dir created
+  ```
+
 Dependencies
 ------------
 
@@ -107,6 +116,8 @@ Tags
 
 * **user.group** - Manage groups
 * **user.account** - Manage user's account
+* **user.ldap** - Manage user's in LDAP
+* **user.homedir** - Manage user's home directory
 * **user.sshkeys** - Manage user's sshkeys
   * **user.sshkeys.authorized** - Manage ssh public key in authorized keys
   * **user.sshkeys.private** - Copy ssh keys
