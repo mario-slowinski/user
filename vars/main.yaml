@@ -9,4 +9,6 @@ user_homedir:
   mode: 0o700
   setype: home_t
 
+user_skel_path: /etc/skel
+
 user_query_homedir: "[?remote==`true` && create_home!=`false`].name"
