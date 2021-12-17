@@ -1,4 +1,10 @@
 ---
+- name: "Manage sudoers"
+  tags:
+    - user
+    - user.sudoers
+  ansible.builtin.import_tasks: sudoers.yaml
+
 - name: "Manage groups"
   tags:
     - user
@@ -31,9 +37,3 @@
     - user
     - user.sshkeys
   ansible.builtin.import_tasks: sshkeys.yaml
-
-- name: "Manage sudoers"
-  tags:
-    - user
-    - user.sudoers
-  ansible.builtin.import_tasks: sudoers.yaml
