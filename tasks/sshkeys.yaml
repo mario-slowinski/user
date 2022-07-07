@@ -17,7 +17,7 @@
   tags: user.sshkeys.authorized
   ansible.posix.authorized_key:
     key:
-      "{% if item[1]['key'] is match('ssh-.{256}') %}\
+      "{% if item[1]['key'] is match('ssh-.+') %}\
       {{ item[1]['key'] }}\
       {% else %}\
       {{ lookup('file', item[1]['key'], errors='ignore') }}\
