@@ -41,4 +41,5 @@
   loop: "{{ user_accounts | selectattr('dn','undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  become: true
   no_log: "{{ user_account_nolog | default(true) }}"
