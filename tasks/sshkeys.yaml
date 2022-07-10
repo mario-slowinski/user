@@ -23,6 +23,7 @@
       {% else %}\
       {{ lookup('file', item[1]['key'], errors='ignore') }}\
       {% endif %}"
+    exclusive: "{{ item[1]['exclusive'] | default(omit) }}"
     user: "{{ item[0]['name'] }}"
     manage_dir: "{{ item[1]['manage_dir'] | default(omit, true) }}"
     path: "{{ item[1]['path'] | default(omit, true) }}"
@@ -33,14 +34,15 @@
   become: true
 
 - name: "Copy ssh keys"
-  tags: user.sshkeys.private
+  tags: user.sshkeys.copy
   ansible.builtin.copy:
-    src: "{{ item[1] }}"
-    dest: "~{{ item[0]['name'] }}/.ssh/{{ item[1] | basename }}"
+    src: "{{ item[1]['file'] | default(omit) }}"
+    content: "{{ item[1]['key'] | default(omit) }}"
+    dest: "~{{ item[0]['name'] }}/.ssh/{{ item[1]['dest'] }}"
     owner: "{{ item[0]['name'] }}"
     group: "{{ item[0]['group'] | default(omit) }}"
     mode: preserve
   loop: "{{ user_accounts | subelements('ssh_keys', skip_missing=True) }}"
   loop_control:
-    label: "{{ item[0]['name'] }} {{ item[1] }}"
+    label: "{{ item[0]['name'] }} dest=~{{ item[0]['name'] }}/.ssh/{{ item[1]['dest'] }}"
   become: true

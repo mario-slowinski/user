@@ -119,8 +119,9 @@ Tags
 * **user.ldap** - Manage user's in LDAP
 * **user.homedir** - Manage user's home directory
 * **user.sshkeys** - Manage user's sshkeys
+  * **user.sshkeys.directory** - Create authorized keys directory
   * **user.sshkeys.authorized** - Manage ssh public key in authorized keys
-  * **user.sshkeys.private** - Copy ssh keys
+  * **user.sshkeys.copy** - Copy ssh keys
 * **user.sudoers** - Manage sudoers
 
 Examples
