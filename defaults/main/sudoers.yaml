@@ -1,9 +1,10 @@
 ---
 user_sudoers:
   - file: "ansible"
-    user: "ansible"
-    host: "ALL"
+    from: "ansible"
+    hosts: "ALL"
     runas:
       - user: "ALL"
         group: "ALL"
+        password: true
         cmd: "ALL"

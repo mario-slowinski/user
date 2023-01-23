@@ -3,7 +3,7 @@
   ansible.builtin.lineinfile:
     path: "/etc/{{ (item[0]['file'] == 'sudoers') | ternary(item[0]['file'],'sudoers.d/'+item[0]['file']) }}"
     line: >-
-      {{ item[0]['for'] }} {{ item[0]['hosts'] }}
+      {{ item[0]['from'] }} {{ item[0]['hosts'] }}
       =
       ({{ item[1]['user'] }}:{{ item[1]['group'] }})
       {{ item[1]['password'] | ternary('PASSWD:','NOPASSWD:') }} {{ item[1]['cmd'] }}
