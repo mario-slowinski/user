@@ -2,6 +2,7 @@
 - name: "Manage sudoers"
   ansible.builtin.lineinfile:
     path: "/etc/{{ (item[0]['file'] == 'sudoers') | ternary(item[0]['file'],'sudoers.d/'+item[0]['file']) }}"
+    regexp: "^#?{{ item[0]['from'] }}"
     line: >-
       {{ item[0]['from'] }} {{ item[0]['hosts'] }}
       =
