@@ -22,6 +22,7 @@
     - user
     - user.ldap
   ansible.builtin.import_tasks: ldap.yaml
+  when: user_accounts | selectattr('dn','defined') | length > 0
 
 - name: "Manage user's home directory"
   tags:
