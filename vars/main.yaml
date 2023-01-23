@@ -2,7 +2,7 @@
 user_sudoers_config:
   owner: root
   group: root
-  mode: 0o644
+  mode: 0o440
   setype: etc_t
 
 user_homedir:
