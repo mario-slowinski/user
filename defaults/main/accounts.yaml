@@ -2,9 +2,6 @@
 user_accounts:
   - name: ansible
     comment: "Ansible"
-    groups:
-      - sudo
-    append: true
     shell: "/bin/bash"
     password: "!GENERATE!"
     generate_ssh_key: true
