@@ -16,5 +16,8 @@
     state: "{{ item[0]['state'] | default(omit) }}"
   loop: "{{ user_sudoers | subelements('runas') }}"
   loop_control:
-    label: "{{ item[0]['state'] | default('present') }} user={{ item[1]['user'] }} command={{ item[1]['cmd'] }}"
+    label: >-
+      {{ item[0]['state'] | default('present') }}
+      file={{ item[0]['file'] }}
+      from={{ item[0]['from'] }} command={{ item[1]['cmd'] }}
   become: true
