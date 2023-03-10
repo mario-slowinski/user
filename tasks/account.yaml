@@ -46,5 +46,29 @@
     ansible_os_family == 'Debian'
   become: true
   no_log: "{{ user_account_nolog | default(true) }}"
+
+- name: "Manage local Windows users"
+  tags: user.account.windows
+  ansible.windows.win_user:
+    name: "{{ item['name'] | mandatory }}"
+    account_disabled: "{{ item['account_disabled'] | default(omit, true) }}"
+    account_locked: "{{ item['account_locked'] | default(omit, true) }}"
+    description: "{{ item['description'] | default(omit, true) }}"
+    fullname: "{{ item['fullname'] | default(omit, true) }}"
+    groups: "{{ item['groups'] | default([], true) | join(',') }}"
+    groups_action: "{{ item['groups_action'] | default(omit, true) }}"
+    home_directory: "{{ item['home'] | default(omit, true) }}"
+    password: "{{ lookup('template','password.ji2') | trim }}"
+    password_expired: "{{ item['password_expired'] | default(omit, true) }}"
+    password_never_expires: "{{ item['password_never_expires'] | default(omit, true) }}"
+    login_script: "{{ item['shell'] | default(omit, true) }}"
+    update_password: "{{ item['update_password'] | default(omit, true) }}"
+    profile: "{{ item['profile'] | default(omit, true) }}"
+    state: "{{ item['state'] | default(omit, true) }}"
+  loop: "{{ user_accounts | selectattr('dn','undefined') }}"
+  loop_control:
+    label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  when:
+    - ansible_os_family == 'Windows'
   become: true
   no_log: "{{ user_account_nolog | default(true) }}"
