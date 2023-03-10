@@ -8,4 +8,7 @@
   loop: "{{ user_groups }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  when: |-
+    ansible_os_family == 'RedHat' or
+    ansible_os_family == 'Debian'
   become: true

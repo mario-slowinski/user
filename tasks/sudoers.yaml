@@ -20,4 +20,7 @@
       {{ item[0]['state'] | default('present') }}
       file={{ item[0]['file'] }}
       from={{ item[0]['from'] }} command={{ item[1]['cmd'] }}
+  when: |-
+    ansible_os_family == 'RedHat' or
+    ansible_os_family == 'Debian'
   become: true

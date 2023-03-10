@@ -32,6 +32,9 @@
   loop: "{{ user_accounts | json_query(user_query_homedir) }}"
   loop_control:
     label: "{{ item }}"
+  when: |-
+    ansible_os_family == 'RedHat' or
+    ansible_os_family == 'Debian'
 
 - name: "Manage user's sshkeys"
   tags:

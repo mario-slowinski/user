@@ -1,6 +1,6 @@
 ---
-- name: "Manage local users"
-  tags: user.account
+- name: "Manage local Linux users"
+  tags: user.account.linux
   ansible.builtin.user:
     name: "{{ item['name'] | mandatory }}"
     system: "{{ item['system'] | default(omit, true) }}"
@@ -41,5 +41,10 @@
   loop: "{{ user_accounts | selectattr('dn','undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  when: |-
+    ansible_os_family == 'RedHat' or
+    ansible_os_family == 'Debian'
+  become: true
+  no_log: "{{ user_account_nolog | default(true) }}"
   become: true
   no_log: "{{ user_account_nolog | default(true) }}"
