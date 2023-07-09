@@ -41,3 +41,9 @@
     - user
     - user.sshkeys
   ansible.builtin.import_tasks: sshkeys.yaml
+
+- name: "Manage user's limits"
+  tags:
+    - user
+    - user.limit
+  ansible.builtin.import_tasks: limit.yaml
