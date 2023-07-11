@@ -30,7 +30,7 @@
     hidden: "{{ item['hidden'] | default(omit, true) }}"
     local: "{{ item['local'] | default(omit, true) }}"
     login_class: "{{ item['login_class'] | default(omit, true) }}"
-    password: "{{ lookup('template','password.ji2') | trim }}"
+    password: "{{ lookup('template', 'password.ji2') | trim }}"
     password_expire_min: "{{ item['password_expire_min'] | default(omit, true) }}"
     password_expire_max: "{{ item['password_expire_max'] | default(omit, true) }}"
     password_lock: "{{ item['password_lock'] | default(omit, true) }}"
@@ -38,7 +38,7 @@
     profile: "{{ item['profile'] | default(omit, true) }}"
     seuser: "{{ item['seuser'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
-  loop: "{{ user_accounts | selectattr('dn','undefined') }}"
+  loop: "{{ user_accounts | selectattr('dn', 'undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   when: |-
@@ -59,14 +59,14 @@
     groups_action: "{{ item['groups_action'] | default(omit, true) }}"
     home_directory: "{{ item['home'] | default(omit, true) }}"
     login_script: "{{ item['shell'] | default(omit, true) }}"
-    password: "{{ lookup('template','password.ji2') | trim }}"
+    password: "{{ lookup('template', 'password.ji2') | trim }}"
     password_expired: "{{ item['password_expired'] | default(omit, true) }}"
     password_never_expires: "{{ item['password_never_expires'] | default(omit, true) }}"
     profile: "{{ item['profile'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
     update_password: "{{ item['update_password'] | default(omit, true) }}"
     user_cannot_change_password: "{{ item['user_cannot_change_password'] | default(omit, true) }}"
-  loop: "{{ user_accounts | selectattr('dn','undefined') }}"
+  loop: "{{ user_accounts | selectattr('dn', 'undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   when:

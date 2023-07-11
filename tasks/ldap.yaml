@@ -4,4 +4,4 @@
   ansible.builtin.import_role:
     name: ldap
   vars:
-    ldap_entries: "{{ lookup('template','ldap.ji2') | trim }}"
+    ldap_entries: "{{ lookup('template', 'ldap.ji2') | trim }}"

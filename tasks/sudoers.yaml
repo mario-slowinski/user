@@ -1,13 +1,13 @@
 ---
 - name: "Manage sudoers"
   ansible.builtin.lineinfile:
-    path: "/etc/{{ (item[0]['file'] == 'sudoers') | ternary(item[0]['file'],'sudoers.d/'+item[0]['file']) }}"
+    path: "/etc/{{ (item[0]['file'] == 'sudoers') | ternary(item[0]['file'], 'sudoers.d/' + item[0]['file']) }}"
     regexp: "^#?{{ item[0]['from'] }}"
     line: >-
       {{ item[0]['from'] }} {{ item[0]['hosts'] }}
       =
       ({{ item[1]['user'] }}:{{ item[1]['group'] }})
-      {{ item[1]['password'] | ternary('PASSWD:','NOPASSWD:') }} {{ item[1]['cmd'] }}
+      {{ item[1]['password'] | ternary('PASSWD:', 'NOPASSWD:') }} {{ item[1]['cmd'] }}
     owner: "{{ user_sudoers_config['owner'] }}"
     group: "{{ user_sudoers_config['group'] }}"
     mode: "{{ user_sudoers_config['mode'] }}"
