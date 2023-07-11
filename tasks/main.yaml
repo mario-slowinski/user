@@ -47,3 +47,9 @@
     - user
     - user.limit
   ansible.builtin.import_tasks: limit.yaml
+
+- name: "Manage user's bash PATH and aliases"
+  tags:
+    - user
+    - user.bash
+  ansible.builtin.import_tasks: bash.yaml
