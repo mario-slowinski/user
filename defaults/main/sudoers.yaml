@@ -1,10 +1,10 @@
 ---
-user_sudoers:
-  - file: "ansible"
-    from: "ansible"
-    hosts: "ALL"
-    runas:
-      - user: "ALL"
-        group: "ALL"
-        password: true
-        cmd: "ALL"
+user_sudoers: []
+#  - file: "ansible"
+#    from: "ansible"
+#    hosts: "ALL"
+#    runas:
+#      - user: "ALL"
+#        group: "ALL"
+#        password: true
+#        cmd: "ALL"

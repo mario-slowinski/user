@@ -1,15 +1,15 @@
 ---
-user_accounts:
-  - name: ansible
-    comment: "Ansible"
-    shell: "/bin/bash"
-    password: "!GENERATE!"
-    generate_ssh_key: true
-    ssh_key_bits: 4096
-    ssh_key_comment: "ansible@{{ inventory_hostname_short }}"
-    ssh_keys: []
-    authorized_keys:
-      - key: "{{ playbook_dir }}/files/id_rsa.pub"
-        state: absent
-      - key: "~/.ssh/id_rsa.pub"
-    state: "present"
+user_accounts: []
+#  - name: ansible
+#    comment: "Ansible"
+#    shell: "/bin/bash"
+#    password: "!GENERATE!"
+#    generate_ssh_key: true
+#    ssh_key_bits: 4096
+#    ssh_key_comment: "ansible@{{ inventory_hostname_short }}"
+#    ssh_keys: []
+#    authorized_keys:
+#      - key: "{{ playbook_dir }}/files/id_rsa.pub"
+#        state: absent
+#      - key: "~/.ssh/id_rsa.pub"
+#    state: "present"

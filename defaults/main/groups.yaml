@@ -1,5 +1,3 @@
 ---
 # user_groups: "{{ user_accounts | json_query(\"[?state!='absent'].[group,groups]\") | flatten }}"
-user_groups:
-  - name: sudo
-    gid: 27
+user_groups: []
