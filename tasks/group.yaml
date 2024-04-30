@@ -12,3 +12,15 @@
     ansible_os_family == 'RedHat' or
     ansible_os_family == 'Debian'
   become: true
+
+- name: "Manage windows groups"
+  ansible.windows.win_group:
+    name: "{{ item['name'] | mandatory }}"
+    description: "{{ item['description'] | default(omit, true) }}"
+    state: "{{ item['state'] | default(omit, true) }}"
+  loop: "{{ user_groups }}"
+  loop_control:
+    label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  when:
+    - ansible_os_family == 'Windows'
+  become: true
