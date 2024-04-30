@@ -24,3 +24,15 @@
   when:
     - ansible_os_family == 'Windows'
   become: true
+
+- name: "Manage windows group memberships"
+  ansible.windows.win_group_membership:
+    name: "{{ item['name'] | mandatory }}"
+    members: "{{ item['members'] }}"
+    state: "{{ item['state'] | default(omit, true) }}"
+  loop: "{{ user_groups }}"
+  loop_control:
+    label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
+  when:
+    - ansible_os_family == 'Windows'
+  become: true
