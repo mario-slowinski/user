@@ -1,14 +1,14 @@
 ---
 user_bashes: []
-  # aliases: []
-  # dest: "/home/ansible/"
-  # owner: ansible
-  # group: ansible
-  # mode: 0o644
-  # setype: user_home_t
-  # paths: []
-  # dest: "/root/"
-  # owner: root
-  # group: root
-  # mode: 0o644
-  # setype: admin_home_t
+# aliases: []
+# dest: "/home/ansible/"
+# owner: ansible
+# group: ansible
+# mode: 0o644
+# setype: user_home_t
+# paths: []
+# dest: "/root/"
+# owner: root
+# group: root
+# mode: 0o644
+# setype: admin_home_t
