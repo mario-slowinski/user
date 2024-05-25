@@ -9,7 +9,8 @@
   tags:
     - user
     - user.group
-  ansible.builtin.import_tasks: group.yaml
+  ansible.builtin.import_tasks: "group/{{ ansible_system }}.yaml"
+  when: user_groups | length > 0
 
 - name: "Manage user's account"
   tags:

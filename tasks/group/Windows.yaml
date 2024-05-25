@@ -1,18 +1,4 @@
 ---
-- name: "Manage groups"
-  ansible.builtin.group:
-    name: "{{ item['name'] | mandatory }}"
-    gid: "{{ item['gid'] | default(omit, true) }}"
-    system: "{{ item['system'] | default(omit, true) }}"
-    state: "{{ item['state'] | default(omit, true) }}"
-  loop: "{{ user_groups }}"
-  loop_control:
-    label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
-  when: |-
-    ansible_os_family == 'RedHat' or
-    ansible_os_family == 'Debian'
-  become: true
-
 - name: "Manage windows groups"
   ansible.windows.win_group:
     name: "{{ item['name'] | mandatory }}"
@@ -21,8 +7,7 @@
   loop: "{{ user_groups }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
-  when:
-    - ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'
   become: true
 
 - name: "Manage windows group memberships"
@@ -33,6 +18,5 @@
   loop: "{{ user_groups | selectattr('members', 'defined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
-  when:
-    - ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'
   become: true
