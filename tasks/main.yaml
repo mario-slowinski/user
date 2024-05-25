@@ -15,7 +15,8 @@
   tags:
     - user
     - user.account
-  ansible.builtin.import_tasks: account.yaml
+  ansible.builtin.import_tasks: "account/{{ ansible_system }}.yaml"
+  when: user_accounts | length > 0
 
 - name: "Manage user's in ldap"
   tags:
