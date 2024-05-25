@@ -22,7 +22,8 @@
     ssh_key_bits: "{{ item['ssh_key_bits'] | default(omit, true) }}"
     ssh_key_comment: "{{ item['ssh_key_comment'] | default(omit, true) }}"
     ssh_key_file: "{{ item['ssh_key_file'] | default(omit, true) }}"
-    ssh_key_passphrase: "{{ item['ssh_key_passphrase'] | default(omit, true) }}"
+    ssh_key_passphrase: >-
+      {{ item['ssh_key_passphrase'] | default(omit, true) }}
     ssh_key_type: "{{ item['ssh_key_type'] | default(omit, true) }}"
     force: "{{ item['force'] | default(omit, true) }}"
     remove: "{{ item['remove'] | default(omit, true) }}"
@@ -31,8 +32,10 @@
     local: "{{ item['local'] | default(omit, true) }}"
     login_class: "{{ item['login_class'] | default(omit, true) }}"
     password: "{{ lookup('template', 'password.ji2') | trim }}"
-    password_expire_min: "{{ item['password_expire_min'] | default(omit, true) }}"
-    password_expire_max: "{{ item['password_expire_max'] | default(omit, true) }}"
+    password_expire_min: >-
+      {{ item['password_expire_min'] | default(omit, true) }}
+    password_expire_max: >-
+      {{ item['password_expire_max'] | default(omit, true) }}
     password_lock: "{{ item['password_lock'] | default(omit, true) }}"
     update_password: "{{ item['update_password'] | default(omit, true) }}"
     profile: "{{ item['profile'] | default(omit, true) }}"
@@ -61,15 +64,16 @@
     login_script: "{{ item['shell'] | default(omit, true) }}"
     password: "{{ lookup('template', 'password.ji2') | trim }}"
     password_expired: "{{ item['password_expired'] | default(omit, true) }}"
-    password_never_expires: "{{ item['password_never_expires'] | default(omit, true) }}"
+    password_never_expires: >-
+      {{ item['password_never_expires'] | default(omit, true) }}
     profile: "{{ item['profile'] | default(omit, true) }}"
     state: "{{ item['state'] | default(omit, true) }}"
     update_password: "{{ item['update_password'] | default(omit, true) }}"
-    user_cannot_change_password: "{{ item['user_cannot_change_password'] | default(omit, true) }}"
+    user_cannot_change_password: >-
+      {{ item['user_cannot_change_password'] | default(omit, true) }}
   loop: "{{ user_accounts | selectattr('dn', 'undefined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
-  when:
-    - ansible_os_family == 'Windows'
+  when: ansible_os_family == 'Windows'
   become: true
   no_log: "{{ user_account_nolog | default(true) }}"

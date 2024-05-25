@@ -12,7 +12,11 @@
     value: "{{ item['value'] | mandatory }}"
   loop: "{{ user_limits }}"
   loop_control:
-    label: "{{ item['domain'] }} {{ item['limit_type'] }} {{ item['limit_item'] }} {{ item['value'] }}"
+    label: >-
+      {{ item['limit_item'] }}
+      domain={{ item['domain'] }}
+      type={{ item['limit_type'] }}
+      value={{ item['value'] }}
   when: |-
     ansible_os_family == 'RedHat' or
     ansible_os_family == 'Debian'
