@@ -2,11 +2,11 @@
 user_sudoers_config:
   owner: root
   group: root
-  mode: 0o440
+  mode: '0o440'
   setype: etc_t
 
 user_homedir:
-  mode: 0o700
+  mode: '0o700'
   setype: home_t
 
 user_skel_path: /etc/skel
