@@ -10,7 +10,7 @@ galaxy_info:
   platforms:
     - name: GenericLinux
       versions:
-        - "any"
+        - "all"
 
   galaxy_tags:
     - user
