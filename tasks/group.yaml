@@ -30,7 +30,7 @@
     name: "{{ item['name'] | mandatory }}"
     members: "{{ item['members'] }}"
     state: "{{ item['state'] | default(omit, true) }}"
-  loop: "{{ user_groups }}"
+  loop: "{{ user_groups | selectattr('members', 'defined') }}"
   loop_control:
     label: "{{ item['name'] }} state={{ item['state'] | default('present') }}"
   when:
